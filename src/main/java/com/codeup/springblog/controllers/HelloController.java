@@ -20,8 +20,18 @@ public class HelloController {
 	}
 	@GetMapping("/profile/{username}")
 	public String profile(@PathVariable String username, Model model) {
-		model.addAttribute("name", username);
+		model.addAttribute("username", username);
 		return "profile";
+	}
+
+	@GetMapping("/join")
+	public String showJoinForm() {
+		return "join";
+	}
+
+	@PostMapping("/join")
+	public String joinCohort(@RequestParam(name="cohort") String cohort, Model model){model.addAttribute("cohort", cohort);
+		return "join";
 	}
 
 	@GetMapping("/hello")
