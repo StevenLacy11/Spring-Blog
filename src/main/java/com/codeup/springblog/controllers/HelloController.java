@@ -2,6 +2,7 @@ package com.codeup.springblog.controllers;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -11,6 +12,16 @@ public class HelloController {
 	@ResponseBody
 	public String landing(){
 		return "This is a landing page!";
+	}
+
+	@GetMapping("/home")
+	public String welcome(){
+		return "Home";
+	}
+	@GetMapping("/profile/{username}")
+	public String profile(@PathVariable String username, Model model) {
+		model.addAttribute("name", username);
+		return "profile";
 	}
 
 	@GetMapping("/hello")
