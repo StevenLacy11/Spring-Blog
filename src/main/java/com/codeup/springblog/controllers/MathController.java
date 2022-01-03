@@ -32,4 +32,4 @@ public class MathController {
 	public int divide(@PathVariable int number7, @PathVariable int number8){
 		return (number7 / number8);
 	}
-}
+};
