@@ -1,8 +1,6 @@
 package com.codeup.springblog.controllers;
 
-
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "cars")
@@ -13,7 +11,7 @@ public class Car {
 	@Column(name = "id", nullable = false)
 	private long id;
 
-	@Column(name = "brand", nullable = false, length = 50)
+	@Column(name = "make", nullable = false, length = 50)
 	private String make;
 
 	@Column(name = "model", nullable = false, length = 50)
