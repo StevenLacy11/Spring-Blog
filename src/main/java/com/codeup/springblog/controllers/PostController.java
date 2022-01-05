@@ -16,20 +16,15 @@ public class PostController {
 
 		@GetMapping("/jpa")
 		public String postIndex(Model model) {
-			model.addAttribute("name", postDao.findAll());
+			model.addAttribute("allPosts", postDao.findAll());
 
 			return "jpa";
 		}
 
-	@GetMapping("/jpa/{name}")
-	public String postIndex(@PathVariable String name, Model model) {
-		model.addAttribute("name", postDao.findByName(name));
-		return "jpa";
-	}
-
-	@PostMapping("jpa/{id}/delete")
+	@PostMapping("jpa/delete/{id}")
 	public String delete(@PathVariable long id) {
-		postDao.deleteById((id));
+		long deletePostId = id;
+		postDao.deleteById((deletePostId));
 		return "jpa";
 	}
 }

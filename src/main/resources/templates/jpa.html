@@ -8,10 +8,17 @@
 <body>
 <nav th:replace="partials :: navbar"></nav>
 <h1>JPA DATABASE</h1>
-<div th:each="post : ${name}">
+<div th:each="post : ${allPosts}">
 	<p th:text="${post.getName()} + ' ' + ${post.getGender()} "></p>
 </div>
 
+<form th:action="'jpa/edit/' + ${post.getId()}'" method="post">
+<button>Edit</button>
+</form>
+
+<form th:action="'jpa/delete/' + ${post.getId()}'" method="post">
+<button>Delete</button>
+</form>
 
 
 </body>
