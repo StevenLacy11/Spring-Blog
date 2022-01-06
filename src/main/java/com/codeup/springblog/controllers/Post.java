@@ -3,35 +3,18 @@ package com.codeup.springblog.controllers;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "posts")
+@Table(name="posts")
 public class Post {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
 	private long id;
 
-	@Column(name = "name", nullable = false, length = 50)
-	private String name;
+	@Column(nullable = false, length = 100)
+	private String title;
 
-	@Column(name = "gender", nullable = false, length = 50)
-	private String gender;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+	@Column(nullable = false, length = 1000)
+	private String body;
 
 	public long getId() {
 		return id;
@@ -39,5 +22,21 @@ public class Post {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
 	}
 }
