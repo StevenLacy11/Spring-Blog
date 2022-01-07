@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
@@ -7,12 +7,14 @@
 <body>
 
 <div th:each="car : ${cars}">
-	<p th:text="${car.getMake()} + ' ' + ${car.getModel()} "></p>
+	<p th:text="${car.getMake()} + ' ' + ${car.getModel()} " />
+	<!--    <p th:text="${car.getModel()}" />-->
 </div>
 
-	<h1>All Chevys</h1>
-	<div th:each="car : ${chevy}">
-	<p th:text="${car.getMake()} + ' ' + ${car.getModel()} "></p>
+<h1>All Chevys:</h1>
+<div th:each="car : ${chevys}">
+	<p th:text="${car.getMake()} + ' ' + ${car.getModel()} " />
+	<!--    <p th:text="${car.getModel()}" />-->
 </div>
 
 </body>

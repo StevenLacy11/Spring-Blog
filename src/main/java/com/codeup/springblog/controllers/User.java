@@ -3,25 +3,25 @@ package com.codeup.springblog.controllers;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Entity
-@Table(name="users")
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(nullable = false, length = 50)
+	@Column
 	private String username;
 
-	@Column(nullable = false, length = 50)
+	@Column
 	private String email;
 
-	@Column(nullable = false, length = 50)
+	@Column
 	private String password;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-	private List<Post> posts;
+
+	@OneToMany(mappedBy = "user")
+	private List<Post> userPosts;
 
 	public long getId() {
 		return id;
@@ -53,5 +53,13 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Post> getUserPosts() {
+		return userPosts;
+	}
+
+	public void setUserPosts(List<Post> userPosts) {
+		this.userPosts = userPosts;
 	}
 }

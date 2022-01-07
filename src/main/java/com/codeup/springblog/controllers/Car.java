@@ -1,21 +1,33 @@
 package com.codeup.springblog.controllers;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "cars")
+@Table(name="cars")
 public class Car {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
 	private long id;
 
-	@Column(name = "make", nullable = false, length = 50)
+	@Column(nullable = false, length = 50)
 	private String make;
 
-	@Column(name = "model", nullable = false, length = 50)
+	@Column(nullable = false, length = 50)
 	private String model;
+
+	@ManyToMany(mappedBy = "vehicle")
+	private List<Owner> carOwner;
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	public long getId() {
+		return id;
+	}
 
 	public String getMake() {
 		return make;
@@ -31,14 +43,6 @@ public class Car {
 
 	public void setModel(String model) {
 		this.model = model;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 }
 

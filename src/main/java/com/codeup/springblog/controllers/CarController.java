@@ -1,5 +1,4 @@
 package com.codeup.springblog.controllers;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,16 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CarController {
 	private final CarRepository carDao;
 
-	public CarController(CarRepository carDao) {
+	public CarController(CarRepository carDao){
 		this.carDao = carDao;
 	}
 
 	@GetMapping("/cars")
-	public String carIndex(Model model) {
+	public String carIndex(Model model){
 		model.addAttribute("cars", carDao.findAll());
 
-		model.addAttribute("chevy", carDao.findAllByMake("Chevrolet"));
+		model.addAttribute("chevys", carDao.findAllByMake("Chevrolet"));
 
 		return "cars";
+
 	}
+
+
 }

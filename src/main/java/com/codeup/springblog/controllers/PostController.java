@@ -10,42 +10,76 @@ public class PostController {
 	private final PostRepository postDao;
 	private final UserRepository userDao;
 
-	// setting up the post controller
-	public PostController(PostRepository postDao, UserRepository userDao) {
+
+	public PostController(PostRepository postDao, UserRepository userDao){
 		this.postDao = postDao;
 		this.userDao = userDao;
 	}
 
-	// getting the show post page
+
 	@GetMapping("/posts")
-	public String posts(Model model) {
-		model.addAttribute("post", postDao.findAll());
-		model.addAttribute("user", userDao.findAll());
+	public String indexPosts(Model model){
+		model.addAttribute("allPosts", postDao.findAll());
+
+		return "posts/index";
+	}
+
+	@GetMapping("/posts/{id}")
+	public String individualPost(@PathVariable int id){
 		return "posts/show";
 	}
 
-	// delete a post method
-	@PostMapping("/posts/{id}")
-	public String deletePost(@PathVariable Long id) {
-		postDao.deleteById(id);
-		return "redirect:/posts";
-	}
-
-	@GetMapping("posts/edit/{id}")
-	public String editPost(@PathVariable long id, Model model) {
+	@GetMapping("/posts/edit/{id}")
+	public String editPost(@PathVariable long id, Model model){
 		Post editPost = postDao.getById(id);
+
 		model.addAttribute("postToEdit", editPost);
 		return "posts/edit";
 	}
 
-	@PostMapping("/posts/edit/{id}")
-	public String saveEditedPost(@PathVariable long id, @RequestParam(name="postTitle") String postTitle, @RequestParam(name="postBody") String postBody) {
+	@PostMapping("/posts/edit")
+	public String saveEditPost(@RequestParam(name="postTitle") String postTitle, @RequestParam(name="postBody") String postBody, @RequestParam(name="postId") long id){
+
 		Post postToEdit = postDao.getById(id);
+
 		postToEdit.setBody(postBody);
 		postToEdit.setTitle(postTitle);
+		;
 
 		postDao.save(postToEdit);
+
 		return "redirect:/posts";
 	}
+
+	@PostMapping("/posts/delete/{id}")
+	public String deletePost(@PathVariable long id){
+		long deletePostId = id;
+		postDao.deleteById(deletePostId);
+
+		return "redirect:/posts";
+
+	}
+
+
+	@GetMapping("/posts/create")
+	public String viewCreatePost(Model model){
+		model.addAttribute("post", new Post());
+		return "posts/create";
+	}
+
+	@PostMapping("/posts/create")
+	public String createPost(@ModelAttribute Post post){
+
+		post.setUser(userDao.getById(1L));
+
+		postDao.save(post);
+
+
+		return "redirect:/posts";
+	}
+
+
+
+
 
 }
