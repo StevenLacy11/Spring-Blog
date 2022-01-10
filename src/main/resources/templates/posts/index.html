@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>Post Index</title>
 </head>
 <body>
+<div sec:authorize="isAuthenticated()">
+	<nav>
+		<ul>
+			<!-- More links here... -->
+			<li>
+				<form th:action="@{/logout}"
+					  th:method="post">
+					<button class="btn-link btn"
+							style="margin-top: 8px">Logout
+					</button>
+				</form>
+			</li>
+		</ul>
+	</nav>
 
-
+User ID: <span th:text="${#authentication.principal.id}"></span>
+Username: <span th:text="${#authentication.principal.username}"></span>
+Email: <span th:text="${#authentication.principal.email}"></span>
+</div>
 
 <div th:each="post : ${allPosts}">
 	<span th:text="${post.getTitle()}"></span>
@@ -15,11 +34,13 @@
 	<p th:text="${post.getBody()}"></p>
 
 
-	<form th:action="'/posts/edit/' + ${post.getId()}" method="get">
+	<form method="get"
+		  th:action="'/posts/edit/' + ${post.getId()}">
 		<button>Edit</button>
 	</form>
 
-	<form th:action="'/posts/delete/' + ${post.getId()}" method="post">
+	<form method="post"
+		  th:action="'/posts/delete/' + ${post.getId()}">
 
 		<button>Delete</button>
 	</form>
